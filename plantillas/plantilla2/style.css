@@ -1,0 +1,50 @@
+.plantilla2 {
+  background-color: #f7faff;
+  color: #1a1a1a;
+  padding: 25px;
+  border-radius: 15px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+.plantilla2 h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #2d3e50;
+}
+
+.plantilla2 .slide-content {
+   display: flex;          /* ✅ Mejora distribución en PDF */
+  flex-direction: column; /* ✅ Imagen debajo del texto */
+  align-items: center;    /* ✅ Centrado */
+
+  width: 100%;
+}
+
+.plantilla2 img {
+  display: block;
+  height: 300px;
+  margin: 0 auto 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  width: 100%;       /* ✅ Escalable en exportación */
+  max-width: 320px;  /* ✅ Limita tamaño para PDF/PPTX */
+  height: auto
+}
+
+.plantilla2 p {
+  font-size: 15px;
+  text-align: justify;
+  max-width: 90%;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+.slide {
+  page-break-after: always; /* ✅ Asegura que cada diapositiva salga en una hoja separada del PDF */
+}
+
+.slide img {
+  max-width: 90%;  /* ✅ Evita desbordamiento en PDF y PPTX */
+  height: 330px;
+}

@@ -1,0 +1,54 @@
+.plantilla1 {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.plantilla1 h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #00f0ff;
+  text-shadow: 0 0 8px #00f0ff88;
+}
+
+.plantilla1 .slide {
+  display: flex;
+  flex-direction: column;
+  page-break-after: always; /* ✅ Para PDF */
+}
+.plantilla1 .slide-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.plantilla1 p {
+  text-align: justify;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0px 10px;
+}
+
+.plantilla1 img {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+  padding-top: 10px;
+  margin: 20px auto; /* ✅ Centrado en PDF/PPTX */
+}
+.slide {
+  page-break-after: always; /* ✅ Asegura que cada diapositiva salga en una hoja separada del PDF */
+}
+
+.slide img {
+  max-width: 100%;  /* ✅ Evita desbordamiento en PDF y PPTX */
+  height: auto;
+}

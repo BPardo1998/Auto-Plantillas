@@ -1,0 +1,44 @@
+.plantilla3 {
+  background: #ffffff;
+  color: #333333;
+  padding: 30px;
+  border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.plantilla3 h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #3a3a3a;
+}
+
+.plantilla3 .slide-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.plantilla3 p {
+  font-size: 15px;
+  text-align: justify;
+  line-height: 1.6;
+  padding: 10px;
+}
+
+.plantilla3 img {
+  width: 48%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.slide {
+  page-break-after: always; /* ✅ Asegura que cada diapositiva salga en una hoja separada del PDF */
+}
+
+.slide img {
+  max-width: 100%;  /* ✅ Evita desbordamiento en PDF y PPTX */
+  height: auto;
+}

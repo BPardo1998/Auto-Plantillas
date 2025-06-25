@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --color-primario: #4F46E5;  
+  --color-secundario: #EEF2FF;
+  --color-boton: #3B82F6;
+  --color-boton-hover: #2563EB;
+  --color-texto: #1F2937;
+  --color-fondo: #F9FAFB;
+  --color-borde: #D1D5DB;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #EEF2FF 0%, #C7D2FE 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--color-texto);
+  padding: 2rem;
+  min-height: 100vh;
+  position: relative;
+}
+/* Contenedor principal */
+main {
+  width: 80%;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin: 50px auto;
+}
+/* Título */
+h1 {
+  text-align: center;
+  color: var(--color-primario);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+/* Formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+label {
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+input,
+textarea,
+select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+  width: 100%;
+}
+textarea {
+  resize: vertical;
+}
+button[type="submit"] {
+  background-color: var(--color-boton);
+  color: white;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 21px;
+}
+button[type="submit"]:hover {
+  background-color: var(--color-boton-hover);
+}
+.fondo-onda {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.6;
+}
+/* Descargas */
+.descargas {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.descargas button {
+  background-color: var(--color-primario);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.descargas button:hover {
+  background-color: #4338CA;
+}
+
+/* Vista previa */
+#preview-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px dashed var(--color-borde);
+  border-radius: 8px;
+  background-color: var(--color-secundario);
+  min-height: 100px;
+  text-align: center;
+  color: #6B7280;
+  font-style: italic;
+}

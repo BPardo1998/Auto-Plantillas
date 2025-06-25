@@ -1,0 +1,20 @@
+@media (min-width: 441px) and (max-width: 917px) {
+  main {
+    width: 90%;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .descargas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .descargas button {
+    flex: 1 1 40%;
+  }
+}
