@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Generador de Presentaciones</title>
-  <link rel="stylesheet" href="./assets/css/estilos.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Presentaciones Educativas</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <div class="fondo-onda">
-    <svg viewBox="0 0 1440 320">
-      <path fill="#4F46E5" fill-opacity="0.2"
-        d="M0,160L60,165.3C120,171,240,181,360,165.3C480,149,600,107,720,96C840,85,960,107,1080,117.3C1200,128,1320,128,1380,128L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
-      </path>
-    </svg>
-  </div>
-  <main>
-      <h1>Generador de Presentaciones Educativas</h1>
-      <form id="formulario-generador">
-          <label for="tituloGeneral">Título General:</label>
-          <input type="text" id="tituloGeneral" required>
+  <header class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1 class="title">¡Bienvenido al Generador de Presentaciones Educativas!</h1>
+      <p class="subtitle">Crea presentaciones impactantes con solo unos clics</p>
+      <button id="btn-empezar"><a href="./generador/index.html">Comenzar</a></button>
+    </div>
+  </header>
 
-          <label for="titulosSlides">Títulos de Diapositivas (uno por línea):</label>
-          <textarea id="titulosSlides" rows="6" required></textarea>
-
-          <label for="plantillaSelect">Selecciona una plantilla:</label>
-          <select id="plantillaSelect">
-              <option value="plantilla1">Plantilla 1 - Clásica</option>
-              <option value="plantilla2">Plantilla 2 - Oscura Moderna</option>
-              <option value="plantilla3">Plantilla 3 - Elegante Clara</option>
-          </select>
-
-          <button type="submit">Generar Presentación</button>
-      </form>
-
-      <div id="preview-container">
-          <!-- Aquí Swiper insertará dinámicamente el contenido -->
+  <section class="features">
+    <h2>¿Qué puedes hacer aquí?</h2>
+    <div class="feature-list">
+      <div class="feature">
+        <img src="https://img.icons8.com/color/96/document--v1.png" alt="Crear Presentaciones" />
+        <h3>Crear Presentaciones</h3>
+        <p>Agrega títulos, textos e imágenes fácilmente.</p>
       </div>
-
-      <div class="descargas">
-        <button id="descargarPDF">Descargar PDF</button>
-        <button id="descargarPPTX">Descargar PPTX</button>
+      <div class="feature">
+        <img src="https://img.icons8.com/color/96/export-pdf.png" alt="Exportar PDF" />
+        <h3>Exportar a PDF o PPTX</h3>
+        <p>Descarga tus presentaciones listas para compartir.</p>
       </div>
-  </main>
+      <div class="feature">
+        <img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Contenido Automático" />
+        <h3>Contenido Automático</h3>
+        <p>Generación de contenido educativo con IA (opcional).</p>
+      </div>
+    </div>
+  </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script src="https://unpkg.com/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
-  <script src="./assets/js/generador.js"></script>
+  <footer>
+    <p>Desarrollado por Brandon Pardo © 2025</p>
+  </footer>
+
+  <script src="./script.js"></script>
 </body>
 </html>

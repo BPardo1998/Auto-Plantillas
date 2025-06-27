@@ -12,6 +12,7 @@
   margin-bottom: 20px;
   color: #00f0ff;
   text-shadow: 0 0 8px #00f0ff88;
+  text-align: center;
 }
 
 .plantilla1 .slide {
@@ -46,6 +47,9 @@
 }
 .slide {
   page-break-after: always; /* ✅ Asegura que cada diapositiva salga en una hoja separada del PDF */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  height: 100%;
+  min-height: 100%;
 }
 
 .slide img {

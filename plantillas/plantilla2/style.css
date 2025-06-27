@@ -1,50 +1,56 @@
 .plantilla2 {
-  background-color: #f7faff;
-  color: #1a1a1a;
+c  color: #ffffff;
   padding: 25px;
-  border-radius: 15px;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
+  border-radius: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .plantilla2 h2 {
-  font-size: 28px;
+  font-size: 30px;
   margin-bottom: 20px;
-  color: #2d3e50;
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .plantilla2 .slide-content {
-   display: flex;          /* ✅ Mejora distribución en PDF */
-  flex-direction: column; /* ✅ Imagen debajo del texto */
-  align-items: center;    /* ✅ Centrado */
-
+  display: flex;
+  flex-direction: row-reverse; /* Imagen a la izquierda */
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  gap: 20px;
 }
 
 .plantilla2 img {
   display: block;
-  height: 300px;
-  margin: 0 auto 20px auto;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  width: 100%;       /* ✅ Escalable en exportación */
-  max-width: 320px;  /* ✅ Limita tamaño para PDF/PPTX */
-  height: auto
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .plantilla2 p {
-  font-size: 15px;
+  font-size: 16px;
   text-align: justify;
-  max-width: 90%;
-  margin: 0 auto;
+  color: #e0e0e0;
   line-height: 1.7;
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 10px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
+
+/* PDF/PPTX Compatibilidad */
 .slide {
-  page-break-after: always; /* ✅ Asegura que cada diapositiva salga en una hoja separada del PDF */
+  page-break-after: always;
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* ✅ Fondo degradado moderno */
+  height: 100%;
+  min-height: 100%;
 }
 
 .slide img {
-  max-width: 90%;  /* ✅ Evita desbordamiento en PDF y PPTX */
-  height: 330px;
+  max-width: 100%;
+  height: 300px;
 }
