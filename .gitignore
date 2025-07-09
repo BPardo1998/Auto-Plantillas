@@ -1,0 +1,33 @@
+me salio est# 🔒 Archivos sensibles
+.env
+*.env
+
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# 📁 Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# 🔧 IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 📦 Node modules (si usas npm)
+node_modules/
+
+# 📄 Archivos temporales
+*.tmp
+*.temp
+*.log 

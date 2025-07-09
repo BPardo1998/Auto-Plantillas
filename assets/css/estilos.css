@@ -98,6 +98,26 @@ select:focus {
   background-color: #fff;
 }
 
+.form-help {
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin-top: 0.25rem;
+}
+
+.error-message {
+  color: #DC2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.slide-counter {
+  text-align: right;
+  font-size: 0.875rem;
+  color: var(--color-primario);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
 /* Botones */
 button {
   background-color: var(--color-primario);
@@ -114,6 +134,30 @@ button {
 
 button:hover {
   background-color: #4338CA;
+}
+
+/* Loading states */
+button:disabled {
+  background-color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Vista previa de las diapositivas */

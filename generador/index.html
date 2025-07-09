@@ -15,14 +15,19 @@
       </path>
     </svg>
   </div>
-  <main>
+  <main role="main">
       <h1>Generador de Presentaciones Educativas</h1>
-      <form id="formulario-generador">
+      <form id="formulario-generador" aria-label="Formulario para generar presentaciones">
           <label for="tituloGeneral">Título General:</label>
-          <input type="text" id="tituloGeneral" required>
+          <input type="text" id="tituloGeneral" required aria-describedby="titulo-help">
+          <div id="titulo-help" class="form-help">Ingresa el título principal de tu presentación</div>
 
           <label for="titulosSlides">Títulos de Diapositivas (uno por línea):</label>
-          <textarea id="titulosSlides" rows="6" required></textarea>
+          <textarea id="titulosSlides" rows="6" required placeholder="Ejemplo:&#10;Introducción a la programación&#10;Variables y tipos de datos&#10;Estructuras de control"></textarea>
+          <small class="form-help">Mínimo 1 diapositiva, máximo 20</small>
+          <div class="slide-counter">
+            <span id="slide-count">0</span> diapositivas
+          </div>
 
           <label for="plantillaSelect">Selecciona una plantilla:</label>
           <select id="plantillaSelect">
@@ -33,7 +38,18 @@
 
           </select>
 
-          <button type="submit">Generar Presentación</button>
+          <button type="submit" id="btn-generar">
+        <span class="btn-text">Generar Presentación</span>
+        <span class="btn-loading" style="display: none;">
+          <svg class="spinner" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+              <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+              <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+          Generando...
+        </span>
+      </button>
       </form>
 
       <div id="preview-container">
@@ -54,6 +70,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://unpkg.com/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="../assets/js/generador.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>

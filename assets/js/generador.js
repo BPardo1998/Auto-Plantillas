@@ -51,7 +51,7 @@ if (plantilla.startsWith('plantilla')) {
           <h2>${slide.titulo}</h2>
           <div class="slide-content">
             <p>${slide.texto}</p>
-            <img src="${slide.imagen}" alt="Imagen de ${slide.titulo}" />
+            <img src="${slide.imagen}" alt="Imagen de ${slide.titulo}" loading="lazy" />
           </div>
         </div>
       </div>
@@ -77,41 +77,66 @@ if (plantilla.startsWith('plantilla')) {
   });
 }
 
-// 3. Función para obtener texto real desde OpenAI
+// 3. Función para obtener texto real desde OpenAI (a través del backend seguro)
 async function obtenerTextoDesdeAPI(titulo) {
-  const prompt = `Explica este tema en 3 frases claras: ${titulo}`;
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer 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`
-    },
-    body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }]
-    })
-  });
+  try {
+    console.log("🔄 Enviando petición a la API para:", titulo);
+    const response = await fetch('http://localhost:5000/generar-contenido', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ titulo })
+    });
 
-  if (!response.ok) {
-    console.warn("⚠️ Error usando la API de OpenAI. Se usará texto simulado.");
-    return `Este es un resumen educativo simulado sobre: ${titulo}`;
+    console.log("📡 Respuesta del servidor:", response.status, response.statusText);
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("✅ Texto recibido de la API:", data.texto.substring(0, 100) + "...");
+      return data.texto;
+    } else {
+      const errorText = await response.text();
+      console.warn("⚠️ Error del servidor:", response.status, errorText);
+      console.warn("⚠️ Error usando la API de OpenAI. Se usará texto simulado.");
+      return `Este es un resumen educativo simulado sobre: ${titulo}. La información incluye conceptos clave, ejemplos prácticos y aplicaciones reales del tema.`;
+    }
+  } catch (error) {
+    console.error("❌ Error de conexión:", error);
+    console.warn("⚠️ Error de conexión. Se usará texto simulado.");
+    return `Este es un resumen educativo simulado sobre: ${titulo}. La información incluye conceptos clave, ejemplos prácticos y aplicaciones reales del tema.`;
   }
-
-  const data = await response.json();
-  return data.choices[0].message.content;
 }
 
-// 4. Función para obtener imagen desde Unsplash
+// 4. Función para obtener imagen desde Unsplash (a través del backend seguro)
 async function obtenerImagenDesdeAPI(titulo) {
-  const response = await fetch(`https://api.unsplash.com/photos/random?query=${encodeURIComponent(titulo)}&client_id=ucdSS1lEfdF6XuRPIHjX9x_DmFnAKMytVRaEZvXcQpE`);
-  const data = await response.json();
+  try {
+    console.log("🖼️ Enviando petición de imagen para:", titulo);
+    const response = await fetch('http://localhost:5000/obtener-imagen', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ query: titulo })
+    });
 
-  if (!data.urls?.regular) {
-    console.warn("⚠️ No se encontró imagen. Se usará imagen local.");
+    console.log("📡 Respuesta de imagen del servidor:", response.status, response.statusText);
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("✅ Imagen recibida de la API:", data.imagen);
+      return data.imagen;
+    } else {
+      const errorText = await response.text();
+      console.warn("⚠️ Error del servidor de imagen:", response.status, errorText);
+      console.warn("⚠️ Error usando la API de Unsplash. Se usará imagen local.");
+      return './img/no-disponible.png';
+    }
+  } catch (error) {
+    console.error("❌ Error de conexión de imagen:", error);
+    console.warn("⚠️ Error de conexión. Se usará imagen local.");
     return './img/no-disponible.png';
   }
-
-  return data.urls.regular;
 }
 
 async function capturarFondosComoImagenes() {
@@ -187,107 +212,158 @@ async function capturarFondosComoImagenes() {
   return imagenes;
 }
 // 5. Clonamos las diapositivas para exportarlas sin afectar la vista
-function crearContenedorParaExportar(slides, plantilla) {
+async function crearContenedorParaExportar(slides, plantilla) {
   const contenedor = document.createElement("div");
   contenedor.style.position = "absolute";
   contenedor.style.top = "-9999px";
   contenedor.style.left = "-9999px";
+  contenedor.style.width = "800px";
+  contenedor.style.backgroundColor = "white";
+  contenedor.style.padding = "20px";
   contenedor.id = "contenedor-exportar";
 
-slides.forEach(slide => {
-  const div = document.createElement("div");
-  div.className = `slide ${plantilla}`;
-  div.style.pageBreakAfter = "always";
+  for (let slide of slides) {
+    const div = document.createElement("div");
+    div.style.borderRadius = "10px";
+    div.style.padding = "30px";
+    div.style.marginBottom = "30px";
+    div.style.fontFamily = "Arial, sans-serif";
+    div.style.border = "none";
 
-  // ✅ Solo si es plantilla1 (fondo oscuro), color blanco
-  const colorTexto = plantilla === 'plantilla1' ? 'white' : '#1F2937';
+    // Aplicar estilos según la plantilla
+    let backgroundColor, textColor, titleColor;
+    
+    if (plantilla === 'plantilla1') {
+      backgroundColor = "#1F2937"; // Fondo oscuro
+      textColor = "#FFFFFF"; // Texto blanco
+      titleColor = "#FFFFFF"; // Título blanco
+    } else if (plantilla === 'plantilla2') {
+      backgroundColor = "#4F46E5"; // Fondo azul
+      textColor = "#FFFFFF"; // Texto blanco
+      titleColor = "#FFFFFF"; // Título blanco
+    } else if (plantilla === 'plantilla3') {
+      backgroundColor = "#F3F4F6"; // Fondo gris claro
+      textColor = "#1F2937"; // Texto oscuro
+      titleColor = "#4F46E5"; // Título azul
+    } else {
+      backgroundColor = "#FFFFFF"; // Fondo blanco por defecto
+      textColor = "#1F2937"; // Texto oscuro
+      titleColor = "#4F46E5"; // Título azul
+    }
 
-  div.innerHTML = `
-    <h2 style="color: ${colorTexto}; font-size: 28px;">${slide.titulo}</h2>
-    <div class="slide-content" style="color: ${colorTexto}; font-size: 18px;">
-      <p>${slide.texto}</p>
-      <img src="${slide.imagen}" style="max-width: 90%; height: auto; display: block; margin: 1rem auto;">
-    </div>
-  `;
+    div.style.backgroundColor = backgroundColor;
 
-  contenedor.appendChild(div);
-});
+    // Crear contenido HTML con estilos inline según la plantilla
+    const contenidoHTML = `
+      <h2 style="color: ${titleColor}; font-size: 28px; margin-bottom: 20px; text-align: center; font-weight: bold;">${slide.titulo}</h2>
+      <div style="color: ${textColor}; font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
+        <p>${slide.texto}</p>
+      </div>
+    `;
+
+    div.innerHTML = contenidoHTML;
+
+    // Agregar imagen si existe y no es la imagen por defecto
+    if (slide.imagen && !slide.imagen.includes('no-disponible.png')) {
+      const img = document.createElement('img');
+      img.src = slide.imagen;
+      img.style.maxWidth = "70%";
+      img.style.height = "auto";
+      img.style.display = "block";
+      img.style.margin = "20px auto";
+      img.style.borderRadius = "8px";
+      img.style.border = "2px solid rgba(255,255,255,0.3)";
+      img.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+      
+      // Esperar a que la imagen cargue
+      await new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve;
+        setTimeout(resolve, 3000);
+      });
+      
+      div.appendChild(img);
+    }
+
+    contenedor.appendChild(div);
+  }
 
   document.body.appendChild(contenedor);
   return contenedor;
 }
 
-// 6. Exportar como PDF con html2pdf
+// 6. Exportar como PDF usando html2canvas + jsPDF
 let slidesActuales = [];
 let plantillaActual = '';
 
 // Cuando se hace clic en el botón de "Descargar PDF"
 document.getElementById('descargarPDF').addEventListener('click', async () => {
   console.log("📥 Exportando como PDF...");
+  
+  // Mostrar loading
+  const btn = document.getElementById('descargarPDF');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '🔄 Generando PDF...';
+  btn.disabled = true;
 
-  const imagenes = await capturarFondosComoImagenes();
-  console.log("📸 Total de imágenes capturadas:", imagenes.length);
-
-  const contenedor = document.createElement('div');
-  contenedor.style.position = 'fixed';
-  contenedor.style.top = '0';
-  contenedor.style.left = '0';
-  contenedor.style.opacity = '0';
-  contenedor.id = 'pdf-container';
-
-  const promesasCarga = [];
-  imagenes.forEach((imgBase64, index) => {
-    console.log(`🧱 Añadiendo imagen ${index + 1} al contenedor...`);
-    const slideDiv = document.createElement('div');
-    slideDiv.style.pageBreakAfter = 'always';
-
-    const img = new Image();
-    img.src = imgBase64;
-    img.style.width = '100%';
-    img.style.height = 'auto';
-
-    const promesa = new Promise(resolve => {
-      img.onload = () => {
-        console.log(`✅ Imagen ${index + 1} cargada en memoria`);
-        resolve();
-      };
-      img.onerror = () => {
-        console.warn(`❌ Error al cargar imagen ${index + 1}`);
-        resolve();
-      };
-    });
-
-    promesasCarga.push(promesa);
-    slideDiv.appendChild(img);
-    contenedor.appendChild(slideDiv);
-  });
-
-  document.body.appendChild(contenedor);
-
-  console.log("🕒 Esperando que todas las imágenes terminen de cargar...");
-  await Promise.all(promesasCarga);
-  console.log("✅ Todas las imágenes listas. Generando PDF...");
-
-  html2pdf().from(contenedor).set({
-    margin: 0,
-    filename: 'presentacion.pdf',
-    image: { type: 'png', quality: 1 },
-    html2canvas: {
+  try {
+    // Crear contenedor con las diapositivas actuales
+    const contenedor = await crearContenedorParaExportar(slidesActuales, plantillaActual);
+    
+    // Esperar a que todo se renderice
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Generar PDF usando html2canvas + jsPDF
+    const canvas = await html2canvas(contenedor, {
       scale: 2,
       useCORS: true,
-      backgroundColor: "#ffffff"
-    },
-    jsPDF: {
-      unit: 'px',
-      format: [1280, 720],
-      orientation: 'landscape'
+      allowTaint: true,
+      backgroundColor: "#ffffff",
+      logging: true,
+      width: contenedor.scrollWidth,
+      height: contenedor.scrollHeight
+    });
+    
+    // Crear PDF
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    
+    const imgData = canvas.toDataURL('image/png');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    
+    // Si la imagen es más alta que una página, dividir en múltiples páginas
+    let heightLeft = imgHeight;
+    let position = 0;
+    
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pdfHeight;
+    
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
     }
-  }).save().then(() => {
-    contenedor.remove();
-    console.log("✅ PDF generado con éxito y contenedor eliminado");
-  }).catch(err => {
-    console.error("❌ Error al generar PDF:", err);
-  });
+    
+    // Guardar PDF
+    pdf.save('presentacion.pdf');
+    console.log("✅ PDF generado con éxito");
+    
+  } catch (error) {
+    console.error("❌ Error al generar PDF:", error);
+    alert("Error al generar PDF. Intenta de nuevo.");
+  } finally {
+    // Restaurar botón
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    
+    // Limpiar contenedor
+    const contenedor = document.getElementById('contenedor-exportar');
+    if (contenedor) contenedor.remove();
+  }
 });
 
 // 7. Exportar como PPTX
