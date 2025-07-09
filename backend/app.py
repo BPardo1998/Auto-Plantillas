@@ -265,4 +265,6 @@ if __name__ == '__main__':
     # 🌐 Iniciar el servidor Flask
     # debug=True: Muestra errores detallados y recarga automáticamente
     # port=5000: Puerto estándar para desarrollo
-    app.run(debug=True, port=5000)
+    # host='0.0.0.0': Permite conexiones externas (necesario para Render)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
