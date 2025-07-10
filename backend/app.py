@@ -56,6 +56,26 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 UNSPLASH_API_KEY = os.getenv('UNSPLASH_API_KEY')
 
 # ===================================================
+# 🧪 ENDPOINT DE PRUEBA
+# ===================================================
+
+@app.route('/', methods=['GET'])
+def prueba():
+    """
+    🧪 Endpoint de prueba para verificar que el servidor esté funcionando
+    """
+    return jsonify({
+        'mensaje': '🚀 Servidor del Generador de Presentaciones funcionando correctamente',
+        'status': 'ok',
+        'endpoints': [
+            'GET / (este endpoint)',
+            'POST /subir-pptx',
+            'POST /generar-contenido', 
+            'POST /obtener-imagen'
+        ]
+    })
+
+# ===================================================
 # 📄 ENDPOINT: PROCESAR ARCHIVOS POWERPOINT (.PPTX)
 # ===================================================
 # 
