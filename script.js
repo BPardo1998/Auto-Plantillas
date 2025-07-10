@@ -19,7 +19,7 @@
 // 🌐 URL del backend - Cambia según el entorno
 const BACKEND_URL = window.location.hostname === 'localhost' 
     ? 'http://localhost:5000' 
-    : 'https://tu-app-name.onrender.com'; // Cambiar por tu URL de Render
+    : 'https://auto-plantillas.onrender.com'; // Reemplaza con tu URL real de Render
 
 // 📊 Variables globales
 let presentacionActual = [];
