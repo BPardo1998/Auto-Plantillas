@@ -4,6 +4,9 @@
 
 echo "🚀 Iniciando construcción del proyecto..."
 
+# Cambiar al directorio backend
+cd backend
+
 # Instalar dependencias de Python
 pip install -r requirements.txt
 
