@@ -1,154 +1,589 @@
+/* 🚀 GENERADOR DE PRESENTACIONES EDUCATIVAS - ESTILOS
+   ===================================================
+   
+   📋 DESCRIPCIÓN:
+   Estilos modernos y responsivos para el generador de presentaciones.
+   Diseño limpio, accesible y optimizado para diferentes dispositivos.
+   
+   🎨 CARACTERÍSTICAS:
+   - Diseño responsivo (mobile-first)
+   - Paleta de colores moderna
+   - Animaciones suaves
+   - Accesibilidad mejorada
+   - Optimizado para PDF/PPTX
+*/
+
+/* ===================================================
+   🎨 VARIABLES CSS
+   =================================================== */
+
+:root {
+    /* 🌈 Paleta de colores */
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary-color: #7c3aed;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    
+    /* 🎭 Colores de fondo */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    
+    /* 📝 Colores de texto */
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    
+    /* 📐 Espaciado */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* 🔲 Bordes y sombras */
+    --border-radius: 0.5rem;
+    --border-radius-lg: 0.75rem;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    
+    /* 📱 Breakpoints */
+    --mobile: 640px;
+    --tablet: 768px;
+    --desktop: 1024px;
+}
+
+/* ===================================================
+   🔄 RESET Y BASE
+   =================================================== */
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
-  background-color: #f4f7fb;
-  color: #333;
-  line-height: 1.6;
-  overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    min-height: 100vh;
 }
 
-/* Hero / Encabezado */
-.hero {
-  position: relative;
-  height: 100vh;
-  background: url('https://images.unsplash.com/photo-1603575448364-34e2f632279d') no-repeat center center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+/* ===================================================
+   🎯 LAYOUT PRINCIPAL
+   =================================================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(15, 23, 42, 0.6);
-  z-index: 1;
+/* ===================================================
+   📋 HEADER
+   =================================================== */
+
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: var(--spacing-2xl) 0;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
 }
 
-.hero-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-  padding: 20px;
-  max-width: 800px;
-  animation: fadeInUp 1.5s ease;
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.title {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  font-weight: bold;
+.header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
+/* ===================================================
+   📋 CONTENIDO PRINCIPAL
+   =================================================== */
+
+.main-content {
+    padding: var(--spacing-2xl) 0;
 }
 
-#btn-empezar {
-  padding: 15px 30px;
-  font-size: 1.1rem;
-  background: #38bdf8;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  text-decoration: none;
-  display: inline-block;
+.main-content .container {
+    display: grid;
+    gap: var(--spacing-2xl);
 }
 
-#btn-empezar:hover {
-  background: #0ea5e9;
-  transform: scale(1.05);
+/* ===================================================
+   🎨 PANELES
+   =================================================== */
+
+.generator-panel,
+.template-panel,
+.preview-panel,
+.export-panel {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid #e2e8f0;
 }
 
-/* Sección de características */
-.features {
-  padding: 60px 20px;
-  background: #fff;
-  text-align: center;
-}
-
-.features h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-  color: #0f172a;
-}
-
-.feature-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.feature {
-  background: #f0f4f8;
-  padding: 25px;
-  border-radius: 16px;
-  width: 280px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-}
-
-.feature img {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 15px;
-}
-
-.feature h3 {
-  margin-bottom: 10px;
-  color: #1e293b;
-}
-
-/* Footer */
-footer {
-  background: #0f172a;
-  color: #94a3b8;
-  padding: 20px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-/* Animaciones */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .title {
-    font-size: 2.2rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-  }
-
-  .feature-list {
-    flex-direction: column;
+.generator-panel h2,
+.template-panel h2,
+.preview-panel h2,
+.export-panel h2 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    display: flex;
     align-items: center;
-  }
+    gap: var(--spacing-sm);
+}
+
+/* ===================================================
+   📝 FORMULARIOS
+   =================================================== */
+
+.generator-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.form-group input,
+.form-group textarea {
+    padding: var(--spacing-md);
+    border: 2px solid #e2e8f0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--bg-primary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ===================================================
+   🔘 BOTONES
+   =================================================== */
+
+.btn-generar,
+.btn-upload,
+.btn-export {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+    min-height: 48px;
+}
+
+.btn-generar {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-generar:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-upload {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 2px dashed #cbd5e1;
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn-upload:hover {
+    background: var(--bg-secondary);
+    border-color: var(--primary-color);
+}
+
+.btn-export {
+    background: var(--success-color);
+    color: white;
+    margin: var(--spacing-sm);
+}
+
+.btn-export:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.btn-pdf {
+    background: var(--error-color);
+}
+
+.btn-pdf:hover {
+    background: #dc2626;
+}
+
+.btn-pptx {
+    background: var(--accent-color);
+}
+
+.btn-pptx:hover {
+    background: #d97706;
+}
+
+.btn-eliminar {
+    background: var(--error-color);
+    color: white;
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.btn-eliminar:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+/* ===================================================
+   📁 ÁREA DE SUBIDA
+   =================================================== */
+
+.upload-area {
+    text-align: center;
+    padding: var(--spacing-xl);
+    border: 2px dashed #cbd5e1;
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-tertiary);
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background: var(--bg-secondary);
+}
+
+.upload-hint {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
+}
+
+/* ===================================================
+   👁️ VISTA PREVIA
+   =================================================== */
+
+.slides-preview {
+    display: grid;
+    gap: var(--spacing-lg);
+    max-height: 500px;
+    overflow-y: auto;
+    padding: var(--spacing-sm);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: var(--spacing-2xl);
+}
+
+.slide-preview {
+    background: var(--bg-secondary);
+    border: 1px solid #e2e8f0;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.slide-preview:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.slide-preview h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.slide-preview p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
+.slide-preview img {
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ===================================================
+   📤 PANEL DE EXPORTACIÓN
+   =================================================== */
+
+.export-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    justify-content: center;
+}
+
+/* ===================================================
+   ⏳ LOADER
+   =================================================== */
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loader-content {
+    background: white;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--spacing-md);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===================================================
+   📢 NOTIFICACIONES
+   =================================================== */
+
+.notificacion {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 500;
+    z-index: 1001;
+    animation: slideIn 0.3s ease;
+    max-width: 400px;
+}
+
+.notificacion.exito {
+    background: var(--success-color);
+}
+
+.notificacion.error {
+    background: var(--error-color);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ===================================================
+   📱 RESPONSIVE DESIGN
+   =================================================== */
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .header p {
+        font-size: 1rem;
+    }
+    
+    .main-content .container {
+        gap: var(--spacing-lg);
+    }
+    
+    .generator-panel,
+    .template-panel,
+    .preview-panel,
+    .export-panel {
+        padding: var(--spacing-lg);
+    }
+    
+    .export-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-export {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .notificacion {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    .header {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .generator-panel h2,
+    .template-panel h2,
+    .preview-panel h2,
+    .export-panel h2 {
+        font-size: 1.25rem;
+    }
+}
+
+/* ===================================================
+   🎨 ESTILOS PARA PDF/PPTX
+   =================================================== */
+
+/* Estilos específicos para cuando se genera PDF/PPTX */
+@media print {
+    .header,
+    .generator-panel,
+    .template-panel,
+    .export-panel {
+        display: none;
+    }
+    
+    .preview-panel {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
+    
+    .slide-preview {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
+}
+
+/* ===================================================
+   ♿ ACCESIBILIDAD
+   =================================================== */
+
+/* Mejoras para lectores de pantalla */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Enfoque visible para navegación por teclado */
+button:focus,
+input:focus,
+textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Contraste mejorado para texto */
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #000000;
+        --text-secondary: #333333;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f0f0f0;
+    }
+}
+
+/* Modo oscuro (si el sistema lo prefiere) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1e293b;
+        --bg-secondary: #0f172a;
+        --bg-tertiary: #334155;
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-muted: #64748b;
+    }
 }

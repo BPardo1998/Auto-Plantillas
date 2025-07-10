@@ -1,46 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generador de Presentaciones Educativas</title>
-  <link rel="stylesheet" href="./style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Presentaciones Educativas</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- 📚 Librerías externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.min.js"></script>
 </head>
 <body>
-  <header class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1 class="title">¡Bienvenido al Generador de Presentaciones Educativas!</h1>
-      <p class="subtitle">Crea presentaciones impactantes con solo unos clics</p>
-      <a href="./generador/index.html" id="btn-empezar">Comenzar</a>
+    <!-- 🎯 Header principal -->
+    <header class="header">
+        <div class="container">
+            <h1>🚀 Generador de Presentaciones Educativas</h1>
+            <p>Crea presentaciones impactantes con inteligencia artificial</p>
+        </div>
+    </header>
+
+    <!-- 📋 Contenedor principal -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- 🎨 Panel de generación -->
+            <section class="generator-panel">
+                <h2>🎯 Generar Nueva Diapositiva</h2>
+                
+                <form id="formulario-generador" class="generator-form">
+                    <div class="form-group">
+                        <label for="titulo">📝 Título del tema:</label>
+                        <input 
+                            type="text" 
+                            id="titulo" 
+                            name="titulo" 
+                            placeholder="Ej: La fotosíntesis, El sistema solar, La historia de Roma..."
+                            required
+                        >
+                    </div>
+                    
+                    <button type="submit" class="btn-generar">
+                        🤖 Generar con IA
+                    </button>
+                </form>
+            </section>
+
+            <!-- 📁 Panel de plantillas -->
+            <section class="template-panel">
+                <h2>📁 Subir Plantilla PPTX (Opcional)</h2>
+                
+                <div class="upload-area">
+                    <input 
+                        type="file" 
+                        id="archivo-pptx" 
+                        accept=".pptx"
+                        style="display: none;"
+                    >
+                    <label for="archivo-pptx" class="btn-upload">
+                        📄 Seleccionar archivo .pptx
+                    </label>
+                    <p class="upload-hint">Sube una plantilla personalizada para usar como base</p>
+                </div>
+            </section>
+
+            <!-- 👁️ Vista previa -->
+            <section class="preview-panel">
+                <h2>👁️ Vista Previa de la Presentación</h2>
+                
+                <div id="vista-previa" class="slides-preview">
+                    <p class="empty-state">📝 No hay diapositivas aún. ¡Genera tu primera diapositiva!</p>
+                </div>
+            </section>
+
+            <!-- 📤 Panel de exportación -->
+            <section class="export-panel">
+                <h2>📤 Exportar Presentación</h2>
+                
+                <div class="export-buttons">
+                    <button id="exportar-pdf" class="btn-export btn-pdf">
+                        📄 Exportar a PDF
+                    </button>
+                    <button id="exportar-pptx" class="btn-export btn-pptx">
+                        📊 Exportar a PPTX
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ⏳ Loader -->
+    <div id="loader" class="loader" style="display: none;">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p id="loader-text">Procesando...</p>
+        </div>
     </div>
-  </header>
 
-  <section class="features">
-    <h2>¿Qué puedes hacer aquí?</h2>
-    <div class="feature-list">
-      <div class="feature">
-        <img src="https://img.icons8.com/color/96/document--v1.png" alt="Crear Presentaciones" />
-        <h3>Crear Presentaciones</h3>
-        <p>Agrega títulos, textos e imágenes fácilmente.</p>
-      </div>
-      <div class="feature">
-        <img src="https://img.icons8.com/color/96/export-pdf.png" alt="Exportar PDF" />
-        <h3>Exportar a PDF o PPTX</h3>
-        <p>Descarga tus presentaciones listas para compartir.</p>
-      </div>
-      <div class="feature">
-        <img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Contenido Automático" />
-        <h3>Contenido Automático</h3>
-        <p>Generación de contenido educativo con IA (opcional).</p>
-      </div>
-    </div>
-  </section>
+    <!-- 📢 Notificaciones -->
+    <div id="notifications"></div>
 
-  <footer>
-    <p>Desarrollado por Brandon Pardo © 2025</p>
-  </footer>
-
-  <script src="./script.js"></script>
+    <!-- 🚀 Script principal -->
+    <script src="script.js"></script>
 </body>
 </html>

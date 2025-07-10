@@ -1,126 +1,224 @@
-# 🎯 Generador de Presentaciones Educativas
+# 🚀 Generador de Presentaciones Educativas
 
-Una aplicación web moderna para crear presentaciones educativas de forma rápida y fácil, con exportación a PDF y PPTX.
+> **Crea presentaciones impactantes con inteligencia artificial**
+
+Una aplicación web moderna que genera presentaciones educativas usando IA, con exportación a PDF y PPTX, y soporte para plantillas personalizadas.
 
 ## ✨ Características
 
-- 🎨 **3 plantillas predefinidas** (Clásica, Oscura Moderna, Elegante Clara)
-- 📤 **Subir plantillas personalizadas** (.pptx)
-- 📄 **Exportar a PDF y PPTX**
-- 🖼️ **Generación automática de contenido** (simulado)
-- 📱 **Diseño responsive** para todos los dispositivos
-- ⚡ **Vista previa en tiempo real** con Swiper
+- 🤖 **Generación con IA**: Contenido educativo automático usando OpenAI
+- 🖼️ **Imágenes automáticas**: Imágenes relacionadas desde Unsplash
+- 📄 **Exportación múltiple**: PDF y PPTX con un clic
+- 📁 **Plantillas personalizadas**: Sube tus propios archivos PPTX
+- 📱 **Diseño responsivo**: Funciona en todos los dispositivos
+- ⚡ **Interfaz moderna**: UX/UI optimizada y accesible
 
-## 🚀 Instalación
+## 🛠️ Tecnologías
 
-### Prerrequisitos
-- Python 3.7+
-- Navegador web moderno
+### Frontend
+- HTML5, CSS3, JavaScript ES6+
+- Librerías: jsPDF, PptxGenJS
+- Diseño responsivo y accesible
 
-### Pasos de instalación
+### Backend
+- **Flask**: Framework web de Python
+- **OpenAI API**: Generación de contenido educativo
+- **Unsplash API**: Imágenes de alta calidad
+- **python-pptx**: Procesamiento de archivos PowerPoint
 
-1. **Clona el repositorio:**
+## 🚀 Despliegue en Render.com
+
+### Paso 1: Preparar el repositorio
+
+Asegúrate de que tu repositorio esté limpio y actualizado:
+
 ```bash
-git clone https://github.com/tu-usuario/generador_presentaciones.git
-cd generador_presentaciones
+git add .
+git commit -m "Preparar para despliegue en Render"
+git push origin main
 ```
 
-2. **Instala las dependencias del backend:**
-```bash
-pip install flask flask-cors python-pptx
-```
+### Paso 2: Crear cuenta en Render
 
-3. **Configura las variables de entorno (opcional):**
-```bash
-# Crea un archivo .env en la raíz del proyecto
+1. Ve a [render.com](https://render.com)
+2. Crea una cuenta gratuita
+3. Conecta tu cuenta de GitHub
+
+### Paso 3: Crear nuevo servicio web
+
+1. En el dashboard de Render, haz clic en **"New +"**
+2. Selecciona **"Web Service"**
+3. Conecta tu repositorio de GitHub
+4. Configura el servicio:
+
+#### Configuración básica:
+- **Name**: `generador-presentaciones-backend`
+- **Environment**: `Python 3`
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `gunicorn backend.app:app`
+
+### Paso 4: Configurar variables de entorno
+
+En la sección "Environment Variables" de tu servicio, agrega:
+
+```
 OPENAI_API_KEY=tu_api_key_de_openai
 UNSPLASH_API_KEY=tu_api_key_de_unsplash
 ```
 
-4. **Ejecuta el backend:**
+### Paso 5: Desplegar el frontend
+
+Para el frontend, puedes usar **GitHub Pages**:
+
+1. Ve a tu repositorio en GitHub
+2. Settings → Pages
+3. Source: "Deploy from a branch"
+4. Branch: `main` → `/ (root)`
+5. Save
+
+### Paso 6: Actualizar URLs
+
+Una vez desplegado, actualiza la URL del backend en `script.js`:
+
+```javascript
+const BACKEND_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000' 
+    : 'https://tu-app-name.onrender.com'; // Tu URL de Render
+```
+
+## 🔧 Instalación local
+
+### Prerrequisitos
+- Python 3.8+
+- pip
+- Git
+
+### Pasos
+
+1. **Clonar el repositorio**
+```bash
+git clone https://github.com/tu-usuario/generador-presentaciones.git
+cd generador-presentaciones
+```
+
+2. **Configurar entorno virtual**
+```bash
+python -m venv env
+source env/bin/activate  # En Windows: env\Scripts\activate
+```
+
+3. **Instalar dependencias**
+```bash
+pip install -r requirements.txt
+```
+
+4. **Configurar variables de entorno**
+```bash
+cp env.example .env
+# Edita .env con tus API keys
+```
+
+5. **Ejecutar el backend**
 ```bash
 cd backend
 python app.py
 ```
 
-5. **Abre la aplicación:**
+6. **Abrir el frontend**
 - Abre `index.html` en tu navegador
-- O ejecuta un servidor local: `python -m http.server 8000`
+- O usa un servidor local: `python -m http.server 8000`
 
-## 📁 Estructura del Proyecto
+## 🔑 Configuración de API Keys
+
+### OpenAI API
+1. Ve a [platform.openai.com](https://platform.openai.com)
+2. Crea una cuenta y obtén tu API key
+3. Agrega la key a tu archivo `.env`:
+```
+OPENAI_API_KEY=sk-tu-api-key-aqui
+```
+
+### Unsplash API
+1. Ve a [unsplash.com/developers](https://unsplash.com/developers)
+2. Crea una aplicación y obtén tu API key
+3. Agrega la key a tu archivo `.env`:
+```
+UNSPLASH_API_KEY=tu-unsplash-access-key
+```
+
+## 📁 Estructura del proyecto
 
 ```
-generador_presentaciones/
-├── index.html              # Landing page
-├── style.css               # Estilos de la landing page
-├── generador/
-│   └── index.html          # Aplicación principal
+generador-presentaciones/
 ├── backend/
 │   └── app.py              # Servidor Flask
-├── assets/
-│   ├── css/                # Estilos de la aplicación
-│   └── js/
-│       └── generador.js    # Lógica principal
-├── plantillas/             # Plantillas predefinidas
-│   ├── plantilla1/
-│   ├── plantilla2/
-│   └── plantilla3/
-└── img/                    # Imágenes del proyecto
+├── index.html              # Página principal
+├── style.css               # Estilos CSS
+├── script.js               # Lógica del frontend
+├── requirements.txt        # Dependencias Python
+├── render.yaml            # Configuración Render
+├── build.sh              # Script de construcción
+├── .env                  # Variables de entorno (local)
+├── env.example           # Ejemplo de variables
+└── README.md             # Este archivo
 ```
 
-## 🛠️ Tecnologías Utilizadas
+## 🎯 Uso
 
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-- **Backend:** Python Flask
-- **Librerías:**
-  - Swiper.js (carrusel)
-  - html2pdf.js (exportación PDF)
-  - PptxGenJS (exportación PPTX)
-  - html2canvas (captura de pantalla)
-  - python-pptx (lectura de archivos PPTX)
+1. **Generar contenido**: Escribe un título y haz clic en "Generar con IA"
+2. **Subir plantilla**: Opcionalmente sube un archivo PPTX como base
+3. **Vista previa**: Revisa las diapositivas generadas
+4. **Exportar**: Descarga en PDF o PPTX
 
-## 📖 Uso
+## 🔧 Desarrollo
 
-1. **Crear una presentación:**
-   - Ingresa el título general
-   - Escribe los títulos de las diapositivas (uno por línea)
-   - Selecciona una plantilla
-   - Haz clic en "Generar Presentación"
+### Backend (Flask)
+```bash
+cd backend
+python app.py
+```
+Servidor disponible en: http://localhost:5000
 
-2. **Subir plantilla personalizada:**
-   - Selecciona "Ninguna de las anteriores"
-   - Sube tu archivo .pptx
-   - Haz clic en "Subir y Mostrar"
+### Frontend
+```bash
+python -m http.server 8000
+```
+Aplicación disponible en: http://localhost:8000
 
-3. **Exportar:**
-   - Usa "Descargar PDF" para exportar como PDF
-   - Usa "Descargar PPTX" para exportar como PowerPoint
+## 📊 Endpoints del API
 
-## 🔧 Configuración de APIs (Opcional)
+| Endpoint | Método | Descripción |
+|----------|--------|-------------|
+| `/generar-contenido` | POST | Genera texto educativo con OpenAI |
+| `/obtener-imagen` | POST | Obtiene imagen de Unsplash |
+| `/subir-pptx` | POST | Procesa archivo PowerPoint |
 
-Para usar contenido generado por IA:
+## 🚨 Solución de problemas
 
-1. **OpenAI API:**
-   - Regístrate en [OpenAI](https://openai.com)
-   - Obtén tu API key
-   - Configúrala en las variables de entorno
+### Error: "API key no configurada"
+- Verifica que las variables de entorno estén configuradas
+- En local: revisa el archivo `.env`
+- En Render: revisa las Environment Variables
 
-2. **Unsplash API:**
-   - Regístrate en [Unsplash](https://unsplash.com/developers)
-   - Obtén tu API key
-   - Configúrala en las variables de entorno
+### Error: "CORS policy"
+- El backend debe estar ejecutándose
+- Verifica que la URL del backend sea correcta
+
+### Error: "Module not found"
+- Instala las dependencias: `pip install -r requirements.txt`
+- Verifica que estés en el entorno virtual
 
 ## 🤝 Contribuir
 
 1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
+2. Crea una rama: `git checkout -b feature/nueva-funcionalidad`
+3. Commit: `git commit -m 'Agregar nueva funcionalidad'`
+4. Push: `git push origin feature/nueva-funcionalidad`
 5. Abre un Pull Request
 
-## 📝 Licencia
+## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
 ## 👨‍💻 Autor
 
@@ -136,4 +234,4 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ---
 
-⭐ Si te gusta este proyecto, ¡dale una estrella! 
+⭐ **¡Dale una estrella si te gustó el proyecto!** 
