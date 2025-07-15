@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Presentaciones Educativas</title>
+    <title>🚀 Generador de Presentaciones Educativas - Crea Presentaciones Impactantes</title>
     <link rel="stylesheet" href="style.css">
     
     <!-- 📚 Librerías externas -->
@@ -11,94 +11,145 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.min.js"></script>
 </head>
 <body>
-    <!-- 🎯 Header principal -->
+    <!-- 🎯 Header principal con animaciones -->
     <header class="header">
         <div class="container">
-            <h1>🚀 Generador de Presentaciones Educativas</h1>
-            <p>Crea presentaciones impactantes con inteligencia artificial</p>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-part">🚀 Generador de</span>
+                    <span class="title-part highlight">Presentaciones Educativas</span>
+                </h1>
+                <p class="hero-subtitle">Crea presentaciones impactantes con inteligencia artificial en minutos</p>
+                
+                <!-- 🎨 Características destacadas -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3>IA Inteligente</h3>
+                        <p>Genera contenido educativo automáticamente</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Plantillas Profesionales</h3>
+                        <p>Diseños modernos y atractivos</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Rápido y Fácil</h3>
+                        <p>Crea presentaciones en segundos</p>
+                    </div>
+                </div>
+                
+                <!-- 🚀 Botón de acción principal -->
+                <div class="cta-section">
+                    <a href="generador/" class="btn-primary">
+                        <span class="btn-text">🎯 Comenzar Ahora</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+                    <p class="cta-hint">¡Es completamente gratuito!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 🌊 Ondas animadas de fondo -->
+        <div class="wave-container">
+            <svg class="wave" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
         </div>
     </header>
 
-    <!-- 📋 Contenedor principal -->
-    <main class="main-content">
+    <!-- 📋 Sección de beneficios -->
+    <section class="benefits-section">
         <div class="container">
+            <h2 class="section-title">¿Por qué elegir nuestro generador?</h2>
             
-            <!-- 🎨 Panel de generación -->
-            <section class="generator-panel">
-                <h2>🎯 Generar Nueva Diapositiva</h2>
-                
-                <form id="formulario-generador" class="generator-form">
-                    <div class="form-group">
-                        <label for="titulo">📝 Título del tema:</label>
-                        <input 
-                            type="text" 
-                            id="titulo" 
-                            name="titulo" 
-                            placeholder="Ej: La fotosíntesis, El sistema solar, La historia de Roma..."
-                            required
-                        >
-                    </div>
-                    
-                    <button type="submit" class="btn-generar">
-                        🤖 Generar con IA
-                    </button>
-                </form>
-            </section>
-
-            <!-- 📁 Panel de plantillas -->
-            <section class="template-panel">
-                <h2>📁 Subir Plantilla PPTX (Opcional)</h2>
-                
-                <div class="upload-area">
-                    <input 
-                        type="file" 
-                        id="archivo-pptx" 
-                        accept=".pptx"
-                        style="display: none;"
-                    >
-                    <label for="archivo-pptx" class="btn-upload">
-                        📄 Seleccionar archivo .pptx
-                    </label>
-                    <p class="upload-hint">Sube una plantilla personalizada para usar como base</p>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎓</div>
+                    <h3>Perfecto para Educación</h3>
+                    <p>Diseñado específicamente para profesores y estudiantes. Genera contenido educativo relevante y bien estructurado.</p>
                 </div>
-            </section>
-
-            <!-- 👁️ Vista previa -->
-            <section class="preview-panel">
-                <h2>👁️ Vista Previa de la Presentación</h2>
                 
-                <div id="vista-previa" class="slides-preview">
-                    <p class="empty-state">📝 No hay diapositivas aún. ¡Genera tu primera diapositiva!</p>
+                <div class="benefit-item">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Ahorra Tiempo</h3>
+                    <p>No más horas diseñando diapositivas. Nuestra IA genera contenido profesional en segundos.</p>
                 </div>
-            </section>
-
-            <!-- 📤 Panel de exportación -->
-            <section class="export-panel">
-                <h2>📤 Exportar Presentación</h2>
                 
-                <div class="export-buttons">
-                    <button id="exportar-pdf" class="btn-export btn-pdf">
-                        📄 Exportar a PDF
-                    </button>
-                    <button id="exportar-pptx" class="btn-export btn-pptx">
-                        📊 Exportar a PPTX
-                    </button>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎨</div>
+                    <h3>Diseños Profesionales</h3>
+                    <p>Plantillas modernas y atractivas que mantienen la atención de tu audiencia.</p>
                 </div>
-            </section>
-
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">📱</div>
+                    <h3>Totalmente Responsivo</h3>
+                    <p>Funciona perfectamente en cualquier dispositivo: computadora, tablet o móvil.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">💾</div>
+                    <h3>Múltiples Formatos</h3>
+                    <p>Exporta en PDF o PPTX según tus necesidades. Compatible con PowerPoint.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔒</div>
+                    <h3>100% Gratuito</h3>
+                    <p>Sin costos ocultos, sin registros obligatorios. Comienza a usar inmediatamente.</p>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <!-- ⏳ Loader -->
-    <div id="loader" class="loader" style="display: none;">
-        <div class="loader-content">
-            <div class="spinner"></div>
-            <p id="loader-text">Procesando...</p>
+    <!-- 🎯 Sección de cómo funciona -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">¿Cómo funciona?</h2>
+            
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h3>Escribe el Tema</h3>
+                    <p>Ingresa el título de tu presentación o tema a explicar</p>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h3>IA Genera Contenido</h3>
+                    <p>Nuestra inteligencia artificial crea explicaciones claras y educativas</p>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h3>Personaliza y Exporta</h3>
+                    <p>Revisa, edita y descarga tu presentación en PDF o PPTX</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- 📢 Notificaciones -->
-    <div id="notifications"></div>
+    <!-- 🚀 Sección final de llamada a la acción -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>¿Listo para crear tu primera presentación?</h2>
+            <p>Únete a miles de educadores que ya están usando nuestro generador</p>
+            
+            <a href="generador/" class="btn-primary btn-large">
+                <span class="btn-text">🎯 Comenzar Gratis</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 📢 Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Generador de Presentaciones Educativas. Hecho con ❤️ para la educación.</p>
+        </div>
+    </footer>
 
     <!-- 🚀 Script principal -->
     <script src="script.js"></script>

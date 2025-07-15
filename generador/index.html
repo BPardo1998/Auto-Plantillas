@@ -1,77 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de Presentaciones</title>
-  <link rel="stylesheet" href="../assets/css/estilos.css">
-  <link rel="stylesheet" href="../assets/css/estilosdesktop.css" media="">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Generador de Presentaciones Educativas - Crear Presentaciones</title>
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- 📚 Librerías externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/pptxgenjs/dist/pptxgen.bundle.js"></script>
+  </head>
 <body>
-    <div class="fondo-onda">
-    <svg viewBox="0 0 1440 320">
-      <path fill="#4F46E5" fill-opacity="0.2"
-        d="M0,160L60,165.3C120,171,240,181,360,165.3C480,149,600,107,720,96C840,85,960,107,1080,117.3C1200,128,1320,128,1380,128L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
-      </path>
-    </svg>
-  </div>
-  <main role="main">
-      <h1>Generador de Presentaciones Educativas</h1>
-      <form id="formulario-generador" aria-label="Formulario para generar presentaciones">
-          <label for="tituloGeneral">Título General:</label>
-          <input type="text" id="tituloGeneral" required aria-describedby="titulo-help">
-          <div id="titulo-help" class="form-help">Ingresa el título principal de tu presentación</div>
+    <!-- 🎯 Header principal -->
+    <header class="header generator-header">
+        <div class="container">
+            <h1>🚀 Generador de Presentaciones Educativas</h1>
+            <p>Crea presentaciones impactantes con inteligencia artificial</p>
+        </div>
+    </header>
 
-          <label for="titulosSlides">Títulos de Diapositivas (uno por línea):</label>
-          <textarea id="titulosSlides" rows="6" required placeholder="Ejemplo:&#10;Introducción a la programación&#10;Variables y tipos de datos&#10;Estructuras de control"></textarea>
-          <small class="form-help">Mínimo 1 diapositiva, máximo 20</small>
-          <div class="slide-counter">
-            <span id="slide-count">0</span> diapositivas
-          </div>
+    <!-- 📋 Contenedor principal -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- 🎨 Panel de generación -->
+            <section class="generator-panel">
+                <h2>🎯 Generar Presentación Completa</h2>
+                
+                <form id="formulario-generador" class="generator-form">
+                    <div class="form-group">
+                        <label for="titulos">📝 Títulos de las diapositivas (uno por línea, máximo 10):</label>
+                        <textarea 
+                            id="titulos" 
+                            name="titulos" 
+                            rows="6"
+                            placeholder="Ejemplo:&#10;Introducción a la fotosíntesis&#10;Proceso de la fotosíntesis&#10;Factores que afectan la fotosíntesis&#10;Importancia de la fotosíntesis"
+                            required
+                        ></textarea>
+                        <div class="form-help">
+                            <span id="contador-diapositivas">0</span> diapositivas (máximo 10)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="plantilla-select">🎨 Seleccionar Plantilla:</label>
+                        <select id="plantilla-select" name="plantilla" required>
+                            <option value="">-- Selecciona una plantilla --</option>
+                            <option value="plantilla1">Plantilla 1 - Clásica Azul</option>
+                            <option value="plantilla2">Plantilla 2 - Oscura Moderna</option>
+                            <option value="plantilla3">Plantilla 3 - Elegante Clara</option>
+                            <option value="personalizada">Plantilla Personalizada</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-generar">
+                        🤖 Generar Presentación Completa
+                    </button>
+                </form>
+            </section>
 
-          <label for="plantillaSelect">Selecciona una plantilla:</label>
-          <select id="plantillaSelect">
-              <option value="plantilla1">Plantilla 1 - Clásica</option>
-              <option value="plantilla2">Plantilla 2 - Oscura Moderna</option>
-              <option value="plantilla3">Plantilla 3 - Elegante Clara</option>
-              <option value="personalizada">Ninguna de las anteriores (usar archivo .pptx)</option>
+            <!-- 📁 Panel de plantillas personalizadas -->
+            <section class="template-panel" id="panel-personalizada" style="display: none;">
+                <h2>📁 Subir Plantilla PPTX Personalizada</h2>
+                
+                <div class="upload-area">
+                    <input 
+                        type="file" 
+                        id="archivo-pptx" 
+                        accept=".pptx"
+                        style="display: none;"
+                    >
+                    <label for="archivo-pptx" class="btn-upload">
+                        📄 Seleccionar archivo .pptx
+                    </label>
+                    <p class="upload-hint">Sube una plantilla personalizada para usar como base</p>
+                </div>
+            </section>
 
-          </select>
+            <!-- 👁️ Vista previa -->
+            <section class="preview-panel">
+                <h2>👁️ Vista Previa de la Presentación</h2>
+                
+                <div id="vista-previa" class="slides-preview">
+                    <p class="empty-state">📝 No hay diapositivas aún. ¡Genera tu presentación completa!</p>
+                </div>
+            </section>
 
-          <button type="submit" id="btn-generar">
-        <span class="btn-text">Generar Presentación</span>
-        <span class="btn-loading" style="display: none;">
-          <svg class="spinner" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.416" stroke-dashoffset="31.416">
-              <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
-              <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
-            </circle>
-          </svg>
-          Generando...
-        </span>
-      </button>
-      </form>
+            <!-- 📤 Panel de exportación -->
+            <section class="export-panel">
+                <h2>📤 Exportar Presentación</h2>
+                
+                <div class="export-buttons">
+                    <button id="exportar-pdf" class="btn-export btn-pdf">
+                        📄 Exportar a PDF
+                    </button>
+                    <button id="exportar-pptx" class="btn-export btn-pptx">
+                        📊 Exportar a PPTX
+                    </button>
+                </div>
+            </section>
 
-      <div id="preview-container">
-          <!-- Aquí Swiper insertará dinámicamente el contenido -->
-      </div>
+        </div>
+    </main>
 
-      <div class="descargas">
-        <button id="descargarPDF">Descargar PDF</button>
-        <button id="descargarPPTX">Descargar PPTX</button>
-      </div>
-      <div class="subida-pptx">
-        <label for="pptxUpload">Subir plantilla .pptx:</label>
-        <input type="file" id="pptxUpload">
-        <button type="button" onclick="subirPPTX()">Subir y Mostrar</button>
-      </div>
-  </main>
+    <!-- ⏳ Loader -->
+    <div id="loader" class="loader" style="display: none;">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p id="loader-text">Procesando...</p>
+        </div>
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script src="https://unpkg.com/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="../assets/js/generador.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- 📢 Notificaciones -->
+    <div id="notifications"></div>
+
+    <!-- 🚀 Script principal -->
+    <script src="../assets/js/generador.js"></script>
 </body>
 </html>

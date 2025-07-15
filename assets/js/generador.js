@@ -5,11 +5,9 @@
 document.getElementById('formulario-generador').addEventListener('submit', async function (e) {
   e.preventDefault(); // Esto evita que la página se recargue al enviar el formulario
 
-  const tituloGeneral = document.getElementById('tituloGeneral').value;
-  const titulosSlides = document.getElementById('titulosSlides').value.split('\n').filter(t => t.trim() !== '');
-  const plantillaSeleccionada = document.getElementById('plantillaSelect').value;
+  const titulosSlides = document.getElementById('titulos').value.split('\n').filter(t => t.trim() !== '');
+  const plantillaSeleccionada = document.getElementById('plantilla-select').value;
 
-  console.log("Título general:", tituloGeneral);
   console.log("Títulos de las diapositivas:", titulosSlides);
   console.log("Plantilla seleccionada:", plantillaSeleccionada);
 
@@ -58,7 +56,7 @@ if (plantilla.startsWith('plantilla')) {
     `;
   }
 
-  document.getElementById('preview-container').innerHTML = `
+  document.getElementById('vista-previa').innerHTML = `
     <div class="swiper">
       <div class="swiper-wrapper">
         ${htmlSlides}
@@ -297,11 +295,11 @@ let slidesActuales = [];
 let plantillaActual = '';
 
 // Cuando se hace clic en el botón de "Descargar PDF"
-document.getElementById('descargarPDF').addEventListener('click', async () => {
+document.getElementById('exportar-pdf').addEventListener('click', async () => {
   console.log("📥 Exportando como PDF...");
   
   // Mostrar loading
-  const btn = document.getElementById('descargarPDF');
+  const btn = document.getElementById('exportar-pdf');
   const originalText = btn.innerHTML;
   btn.innerHTML = '🔄 Generando PDF...';
   btn.disabled = true;
@@ -382,100 +380,65 @@ async function convertirImagenABase64(url) {
   });
 }
 
-document.getElementById('descargarPPTX').addEventListener('click', async () => {
+document.getElementById('exportar-pptx').addEventListener('click', async () => {
   console.log("📥 Exportando como PPTX...");
-  const fondos = await capturarFondosComoImagenes(); // 🔁 Captura imagen de fondo para cada slide
-  let pptx = new PptxGenJS();
+  
+  // Mostrar loading
+  const btn = document.getElementById('exportar-pptx');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '🔄 Generando PPTX...';
+  btn.disabled = true;
 
-  for (let i = 0; i < slidesActuales.length; i++) {
-    const slide = pptx.addSlide();
-    const contenido = slidesActuales[i];
+  try {
+    const fondos = await capturarFondosComoImagenes(); // 🔁 Captura imagen de fondo para cada slide
+    let pptx = new PptxGenJS();
 
-    // ✅ Fondo de la plantilla renderizado como imagen
-    slide.addImage({
-      data: fondos[i],
-      x: 0, y: 0,
-      w: 10, h: 5.625,
-      sizing: { type: 'cover', w: 10, h: 5.625 }
-    });
-//Este condicional para que el titulo de la plantoiilla 2 este a la izquierda y de color blanco
-    if (plantillaActual === 'plantilla2') {
-  // 👉 Título a la izquierda y blanco
-  slide.addText(contenido.titulo, {
-    x: 0.5, y: 0.3, w: 9, fontSize: 24, bold: true,
-    color: 'FFFFFF', align: 'left'
-  });
-} else {
-  // 👉 Título centrado y color estándar
-  slide.addText(contenido.titulo, {
-    x: 0.5, y: 0.3, w: 9, fontSize: 24, bold: true,
-    color: '000000', align: 'center'
-  });
-}
+    for (let i = 0; i < slidesActuales.length; i++) {
+      const slide = pptx.addSlide();
+      const contenido = slidesActuales[i];
 
-
-    // ✅ Define color del texto según la plantilla
-    const colorTexto = plantillaActual === 'plantilla1' ? 'FFFFFF' : 'FFFFFF';
-
-    // ✅ ESTILO PLANTILLA 3: texto izquierda, imagen derecha
-    if (plantillaActual === 'plantilla3') {
-      slide.addText(contenido.texto, {
-        x: 0.5, y: 1.5, w: 4.5, h: 3.5,
-        fontSize: 14, color: colorTexto,
-        align: 'justify', wrap: true, lineSpacingMultiple: 1
+      // ✅ Fondo de la plantilla renderizado como imagen
+      slide.addImage({
+        data: fondos[i],
+        x: 0, y: 0,
+        w: 10, h: 5.625,
+        sizing: { type: 'cover', w: 10, h: 5.625 }
       });
 
-      let imgBase64 = contenido.imagen;
-      if (!esBase64(imgBase64)) {
-        try {
-          imgBase64 = await convertirImagenABase64(contenido.imagen);
-        } catch (e) {
-          console.warn("⚠️ Imagen no válida:", contenido.imagen);
-          continue;
-        }
+      // LOG plantilla actual
+      console.log(`\n--- Diapositiva ${i + 1} ---`);
+      console.log('Plantilla actual:', plantillaActual);
+      console.log('Título:', contenido.titulo);
+
+      // ✅ TÍTULO: Configuración según plantilla
+      if (plantillaActual === 'plantilla2') {
+        // 👉 Título a la izquierda y blanco para plantilla2
+        console.log('addText TÍTULO plantilla2', { x: 0.5, y: 0.3, w: 9, fontSize: 24, align: 'left' });
+        slide.addText(contenido.titulo, {
+          x: 0.5, y: 0.3, w: 9, fontSize: 24, bold: true,
+          color: 'FFFFFF', align: 'left'
+        });
+      } else {
+        // 👉 Título centrado para plantilla1 y plantilla3
+        console.log('addText TÍTULO plantilla1/3', { x: 0.5, y: 0.3, w: 9, fontSize: 24, align: 'center' });
+        slide.addText(contenido.titulo, {
+          x: 0.5, y: 0.3, w: 9, fontSize: 24, bold: true,
+          color: 'FFFFFF', align: 'center'
+        });
       }
 
-      slide.addImage({
-        data: imgBase64,
-        x: 5.2, y: 1.5, w: 3.0, h: 3.5,
-        sizing: { type: 'contain', w: 3.0, h: 3.5 }
-      });
+      // ✅ Define color del texto según la plantilla
+      const colorTexto = plantillaActual === 'plantilla1' ? 'FFFFFF' : 'FFFFFF';
 
-    // ✅ ESTILO PLANTILLA 2: imagen izquierda, texto derecha
-    } else if (plantillaActual === 'plantilla2') {
-      // Imagen a la izquierda
-      let imgBase64 = contenido.imagen;
-      if (!esBase64(imgBase64)) {
-        try {
-          imgBase64 = await convertirImagenABase64(contenido.imagen);
-        } catch (e) {
-          console.warn("⚠️ Imagen no válida:", contenido.imagen);
-          continue;
-        }
-      }
+      // ✅ ESTILO PLANTILLA 3: texto izquierda, imagen derecha
+      if (plantillaActual === 'plantilla3') {
+        console.log('addText TEXTO plantilla3', { x: 0.5, y: 1.2, w: 4.2, h: 3.2, fontSize: 16, lineSpacingMultiple: 1.3 });
+        slide.addText(contenido.texto, {
+          x: 0.5, y: 1.2, w: 4.2, h: 3.2,
+          fontSize: 16, color: colorTexto,
+          align: 'justify', wrap: true, lineSpacingMultiple: 1.3
+        });
 
-      slide.addImage({
-        data: imgBase64,
-        x: 0.5, y: 1.5, w: 3.0, h: 3.8,
-        sizing: { type: 'contain', w: 3.0, h: 3.8 }
-      });
-
-      // Texto a la derecha
-      slide.addText(contenido.texto, {
-        x: 4, y: 1.5, w: 5.4, h: 3.5,
-        fontSize: 14, color: colorTexto,
-        align: 'justify', wrap: true, lineSpacingMultiple: 1.2
-      });
-
-    // ✅ ESTILO GENERAL para plantilla1 u otras
-    } else {
-      slide.addText(contenido.texto, {
-        x: 1, y: 0.3, w: 8.0, h: 2.5,
-        fontSize: 14, color: colorTexto,
-        align: 'justify', wrap: true, lineSpacingMultiple: 1
-      });
-
-      if (contenido.imagen) {
         let imgBase64 = contenido.imagen;
         if (!esBase64(imgBase64)) {
           try {
@@ -485,19 +448,77 @@ document.getElementById('descargarPPTX').addEventListener('click', async () => {
             continue;
           }
         }
-
+        console.log('addImage IMAGEN plantilla3', { x: 5.3, y: 1.2, w: 4, h: 3.2 });
         slide.addImage({
           data: imgBase64,
-          x: 2, y: 2.2, w: 6, h: 2.8,
-          sizing: { type: 'contain', w: 6, h: 2.8 }
+          x: 5.3, y: 1.2, w: 4, h: 3.2,
+          sizing: { type: 'contain', w: 4, h: 3.2 }
         });
+
+      // ✅ ESTILO PLANTILLA 2: imagen izquierda, texto derecha
+      } else if (plantillaActual === 'plantilla2') {
+        let imgBase64 = contenido.imagen;
+        if (!esBase64(imgBase64)) {
+          try {
+            imgBase64 = await convertirImagenABase64(contenido.imagen);
+          } catch (e) {
+            console.warn("⚠️ Imagen no válida:", contenido.imagen);
+            continue;
+          }
+        }
+        console.log('addImage IMAGEN plantilla2', { x: 0.5, y: 1.2, w: 3.5, h: 3.2 });
+        slide.addImage({
+          data: imgBase64,
+          x: 0.5, y: 1.2, w: 3.5, h: 3.2,
+          sizing: { type: 'contain', w: 3.5, h: 3.2 }
+        });
+        console.log('addText TEXTO plantilla2', { x: 4.2, y: 1.2, w: 5.2, h: 3.2, fontSize: 16, lineSpacingMultiple: 1.3 });
+        slide.addText(contenido.texto, {
+          x: 4.2, y: 1.2, w: 5.2, h: 3.2,
+          fontSize: 16, color: colorTexto,
+          align: 'justify', wrap: true, lineSpacingMultiple: 1.3
+        });
+
+      // ✅ ESTILO GENERAL para plantilla1 u otras
+      } else {
+        console.log('addText TEXTO plantilla1', { x: 1, y: 1.2, w: 8.0, h: 3.2, fontSize: 16, lineSpacingMultiple: 1.3 });
+        slide.addText(contenido.texto, {
+          x: 1, y: 1.2, w: 8.0, h: 3.2,
+          fontSize: 16, color: colorTexto,
+          align: 'justify', wrap: true, lineSpacingMultiple: 1.3
+        });
+
+        if (contenido.imagen) {
+          let imgBase64 = contenido.imagen;
+          if (!esBase64(imgBase64)) {
+            try {
+              imgBase64 = await convertirImagenABase64(contenido.imagen);
+            } catch (e) {
+              console.warn("⚠️ Imagen no válida:", contenido.imagen);
+              continue;
+            }
+          }
+          console.log('addImage IMAGEN plantilla1', { x: 3, y: 4.6, w: 4, h: 1.2 });
+          slide.addImage({
+            data: imgBase64,
+            x: 3, y: 4.6, w: 4, h: 1.2,
+            sizing: { type: 'contain', w: 4, h: 1.2 }
+          });
+        }
       }
     }
-  }
 
-  pptx.writeFile({ fileName: 'presentacion.pptx' }).then(() => {
-    console.log("✅ PPTX generado con éxito");
-  });
+    pptx.writeFile({ fileName: 'presentacion.pptx' }).then(() => {
+      console.log("✅ PPTX generado con éxito");
+    });
+  } catch (error) {
+    console.error("❌ Error al generar PPTX:", error);
+    alert("Error al generar PPTX. Intenta de nuevo.");
+  } finally {
+    // Restaurar botón
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
 });
 
 async function subirPPTX() {
@@ -517,5 +538,5 @@ async function subirPPTX() {
     return;
   }
 
-  document.getElementById('preview-container').innerHTML = data.slides.join('');
+  document.getElementById('vista-previa').innerHTML = data.slides.join('');
 }

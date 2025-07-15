@@ -11,6 +11,8 @@
    - Animaciones suaves
    - Accesibilidad mejorada
    - Optimizado para PDF/PPTX
+   - Soporte para múltiples plantillas
+   - Generación de múltiples diapositivas
 */
 
 /* ===================================================
@@ -92,7 +94,7 @@ body {
 }
 
 /* ===================================================
-   📋 HEADER
+   📋 HEADER - LANDING PAGE
    =================================================== */
 
 .header {
@@ -101,16 +103,308 @@ body {
     padding: var(--spacing-2xl) 0;
     text-align: center;
     box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
 }
 
-.header h1 {
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
+}
+
+.title-part {
+    display: block;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.title-part.highlight {
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-2xl);
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* 🎨 Características destacadas */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-2xl) 0;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.feature-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: white;
+}
+
+.feature-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+}
+
+/* 🚀 Botón de acción principal */
+.cta-section {
+    margin-top: var(--spacing-2xl);
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    color: white;
+    text-decoration: none;
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    border-radius: var(--border-radius-lg);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-lg);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(251, 191, 36, 0.3);
+}
+
+.btn-primary.btn-large {
+    padding: var(--spacing-xl) var(--spacing-2xl);
+    font-size: 1.2rem;
+}
+
+.btn-arrow {
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover .btn-arrow {
+    transform: translateX(5px);
+}
+
+.cta-hint {
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 🌊 Ondas animadas */
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+    animation: wave 6s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-25px); }
+}
+
+/* ===================================================
+   📋 SECCIONES DE CONTENIDO
+   =================================================== */
+
+.benefits-section,
+.how-it-works,
+.final-cta {
+    padding: var(--spacing-2xl) 0;
+}
+
+.benefits-section {
+    background: var(--bg-primary);
+}
+
+.how-it-works {
+    background: var(--bg-secondary);
+}
+
+.final-cta {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--text-primary);
+}
+
+.final-cta .section-title {
+    color: white;
+}
+
+/* 🎯 Grid de beneficios */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.benefit-item {
+    background: var(--bg-primary);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.benefit-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.benefit-item p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 🎯 Pasos del proceso */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.step-item {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.step-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.step-item p {
+    color: var(--text-secondary);
+}
+
+/* 📢 Footer */
+.footer {
+    background: var(--text-primary);
+    color: white;
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+}
+
+/* ===================================================
+   🎭 ANIMACIONES
+   =================================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================================
+   📋 HEADER - GENERADOR (estilos originales)
+   =================================================== */
+
+.header.generator-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: var(--spacing-2xl) 0;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.header.generator-header h1 {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: var(--spacing-sm);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.header p {
+.header.generator-header p {
     font-size: 1.1rem;
     opacity: 0.9;
     max-width: 600px;
@@ -118,7 +412,7 @@ body {
 }
 
 /* ===================================================
-   📋 CONTENIDO PRINCIPAL
+   📋 CONTENIDO PRINCIPAL - GENERADOR
    =================================================== */
 
 .main-content {
@@ -131,7 +425,7 @@ body {
 }
 
 /* ===================================================
-   🎨 PANELES
+   🎨 PANELES - GENERADOR
    =================================================== */
 
 .generator-panel,
@@ -159,7 +453,7 @@ body {
 }
 
 /* ===================================================
-   📝 FORMULARIOS
+   📝 FORMULARIOS - GENERADOR
    =================================================== */
 
 .generator-form {
@@ -183,17 +477,20 @@ body {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     padding: var(--spacing-md);
     border: 2px solid #e2e8f0;
     border-radius: var(--border-radius);
     font-size: 1rem;
     transition: all 0.3s ease;
     background: var(--bg-primary);
+    resize: vertical;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
@@ -203,14 +500,32 @@ body {
     color: var(--text-muted);
 }
 
+/* 📊 Contador de diapositivas */
+.form-help {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.form-help span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.form-help span.error {
+    color: var(--error-color);
+}
+
 /* ===================================================
-   🔘 BOTONES
+   🔘 BOTONES - GENERADOR
    =================================================== */
 
 .btn-generar,
 .btn-upload,
 .btn-export {
-    padding: var(--spacing-md) var(--spacing-xl);
+    padding: var(--spacing-md) var(--spacing-lg);
     border: none;
     border-radius: var(--border-radius);
     font-size: 1rem;
@@ -219,14 +534,11 @@ body {
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: var(--spacing-sm);
-    text-decoration: none;
-    min-height: 48px;
 }
 
 .btn-generar {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     color: white;
     box-shadow: var(--shadow-md);
 }
@@ -240,8 +552,6 @@ body {
     background: var(--bg-tertiary);
     color: var(--text-primary);
     border: 2px dashed #cbd5e1;
-    width: 100%;
-    max-width: 300px;
 }
 
 .btn-upload:hover {
@@ -252,7 +562,7 @@ body {
 .btn-export {
     background: var(--success-color);
     color: white;
-    margin: var(--spacing-sm);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-export:hover {
@@ -261,48 +571,44 @@ body {
 }
 
 .btn-pdf {
-    background: var(--error-color);
-}
-
-.btn-pdf:hover {
     background: #dc2626;
 }
 
+.btn-pdf:hover {
+    background: #b91c1c;
+}
+
 .btn-pptx {
-    background: var(--accent-color);
+    background: #7c3aed;
 }
 
 .btn-pptx:hover {
-    background: #d97706;
+    background: #6d28d9;
 }
 
 .btn-eliminar {
     background: var(--error-color);
     color: white;
-    border: none;
     padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius);
-    cursor: pointer;
     font-size: 0.875rem;
-    transition: all 0.3s ease;
+    border-radius: var(--border-radius);
 }
 
 .btn-eliminar:hover {
     background: #dc2626;
-    transform: scale(1.05);
 }
 
 /* ===================================================
-   📁 ÁREA DE SUBIDA
+   📁 ÁREA DE SUBIDA - GENERADOR
    =================================================== */
 
 .upload-area {
-    text-align: center;
-    padding: var(--spacing-xl);
     border: 2px dashed #cbd5e1;
-    border-radius: var(--border-radius-lg);
-    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    text-align: center;
     transition: all 0.3s ease;
+    background: var(--bg-tertiary);
 }
 
 .upload-area:hover {
@@ -311,36 +617,38 @@ body {
 }
 
 .upload-hint {
-    color: var(--text-secondary);
-    font-size: 0.875rem;
     margin-top: var(--spacing-sm);
+    color: var(--text-muted);
+    font-size: 0.875rem;
 }
 
 /* ===================================================
-   👁️ VISTA PREVIA
+   👁️ VISTA PREVIA - GENERADOR
    =================================================== */
 
 .slides-preview {
-    display: grid;
-    gap: var(--spacing-lg);
-    max-height: 500px;
+    min-height: 200px;
+    border: 2px dashed #e2e8f0;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    background: var(--bg-tertiary);
+    max-height: 600px;
     overflow-y: auto;
-    padding: var(--spacing-sm);
 }
 
 .empty-state {
     text-align: center;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-style: italic;
-    padding: var(--spacing-2xl);
 }
 
 .slide-preview {
-    background: var(--bg-secondary);
-    border: 1px solid #e2e8f0;
+    background: white;
     border-radius: var(--border-radius);
     padding: var(--spacing-lg);
-    position: relative;
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e2e8f0;
     transition: all 0.3s ease;
 }
 
@@ -349,37 +657,80 @@ body {
     transform: translateY(-2px);
 }
 
-.slide-preview h3 {
-    color: var(--primary-color);
-    font-size: 1.1rem;
+/* 🎨 Estilos para las diapositivas con plantillas */
+.slide-preview .slide {
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide-preview .slide h2 {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-sm);
     font-weight: 600;
+}
+
+.slide-preview .slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.slide-preview .slide-content p {
+    line-height: 1.6;
     margin-bottom: var(--spacing-sm);
 }
 
-.slide-preview p {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: var(--spacing-md);
+.slide-preview .slide-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    object-fit: cover;
 }
 
-.slide-preview img {
+/* 📊 Indicador de progreso */
+.progress-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background: var(--bg-primary);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-sm);
+    border: 1px solid #e2e8f0;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    transition: width 0.3s ease;
 }
 
 /* ===================================================
-   📤 PANEL DE EXPORTACIÓN
+   📤 EXPORTACIÓN - GENERADOR
    =================================================== */
 
 .export-buttons {
     display: flex;
-    flex-wrap: wrap;
     gap: var(--spacing-md);
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 /* ===================================================
-   ⏳ LOADER
+   ⏳ LOADER - GENERADOR
    =================================================== */
 
 .loader {
@@ -419,7 +770,7 @@ body {
 }
 
 /* ===================================================
-   📢 NOTIFICACIONES
+   📢 NOTIFICACIONES - GENERADOR
    =================================================== */
 
 .notificacion {
@@ -431,8 +782,8 @@ body {
     color: white;
     font-weight: 500;
     z-index: 1001;
-    animation: slideIn 0.3s ease;
-    max-width: 400px;
+    animation: slideIn 0.3s ease-out;
+    max-width: 300px;
 }
 
 .notificacion.exito {
@@ -445,12 +796,12 @@ body {
 
 @keyframes slideIn {
     from {
-        transform: translateX(100%);
         opacity: 0;
+        transform: translateX(100%);
     }
     to {
-        transform: translateX(0);
         opacity: 1;
+        transform: translateX(0);
     }
 }
 
@@ -459,16 +810,16 @@ body {
    =================================================== */
 
 @media (max-width: 768px) {
-    .header h1 {
-        font-size: 2rem;
+    .hero-title {
+        font-size: 2.5rem;
     }
     
-    .header p {
-        font-size: 1rem;
+    .hero-subtitle {
+        font-size: 1.1rem;
     }
     
     .main-content .container {
-        gap: var(--spacing-lg);
+        grid-template-columns: 1fr;
     }
     
     .generator-panel,
@@ -480,18 +831,26 @@ body {
     
     .export-buttons {
         flex-direction: column;
-        align-items: center;
     }
     
     .btn-export {
         width: 100%;
-        max-width: 300px;
     }
     
     .notificacion {
         right: 10px;
         left: 10px;
         max-width: none;
+    }
+    
+    .features-grid,
+    .benefits-grid,
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .slides-preview {
+        max-height: 400px;
     }
 }
 
@@ -504,40 +863,47 @@ body {
         padding: var(--spacing-xl) 0;
     }
     
-    .header h1 {
-        font-size: 1.75rem;
+    .hero-title {
+        font-size: 2rem;
     }
     
     .generator-panel h2,
     .template-panel h2,
     .preview-panel h2,
     .export-panel h2 {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .slides-preview {
+        max-height: 300px;
     }
 }
 
 /* ===================================================
-   🎨 ESTILOS PARA PDF/PPTX
+   🖨️ PRINT STYLES
    =================================================== */
 
-/* Estilos específicos para cuando se genera PDF/PPTX */
 @media print {
     .header,
-    .generator-panel,
-    .template-panel,
-    .export-panel {
+    .footer,
+    .export-buttons {
         display: none;
     }
     
     .preview-panel {
         box-shadow: none;
         border: none;
-        padding: 0;
     }
     
     .slide-preview {
-        page-break-inside: avoid;
+        break-inside: avoid;
         margin-bottom: 20px;
+        box-shadow: none;
+        border: 1px solid #000;
     }
 }
 
@@ -545,7 +911,6 @@ body {
    ♿ ACCESIBILIDAD
    =================================================== */
 
-/* Mejoras para lectores de pantalla */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -558,32 +923,28 @@ body {
     border: 0;
 }
 
-/* Enfoque visible para navegación por teclado */
 button:focus,
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
 
-/* Contraste mejorado para texto */
 @media (prefers-contrast: high) {
     :root {
+        --primary-color: #000080;
         --text-primary: #000000;
-        --text-secondary: #333333;
         --bg-primary: #ffffff;
         --bg-secondary: #f0f0f0;
     }
 }
 
-/* Modo oscuro (si el sistema lo prefiere) */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: #1e293b;
-        --bg-secondary: #0f172a;
-        --bg-tertiary: #334155;
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --text-muted: #64748b;
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
     }
 }
